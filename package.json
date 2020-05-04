@@ -1,0 +1,37 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run serve",
+    "serve": "./node_modules/.bin/nodemon --exec \"node -r ts-node/register \" ./src/index.ts -e ts,gql,graphql",
+    "build": "npm run build-ts && npm run tslint",
+    "build-ts": "tsc || exit 1",
+    "clean": "node_modules/rimraf/bin.js -r dist",
+    "tslint": "tslint -c tslint.json -p tsconfig.json --format stylish || exit 1",
+    "test": "cross-env NODE_ENV=test node node_modules/jest-cli/bin/jest --watchAll --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/lodash": "^4.14.150",
+    "apollo-server": "^2.12.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^15.0.0",
+    "lodash": "^4.17.15",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.3",
+    "ts-node": "^8.10.1",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "^25.5.4",
+    "jest-cli": "^25.5.4",
+    "ts-jest": "^25.4.0"
+  }
+}
