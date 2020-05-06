@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 
-const apollo = new ApolloServer({ typeDefs, resolvers });
+const apollo = new ApolloServer({ typeDefs, resolvers, introspection: true, playground: true });
 
 apollo.applyMiddleware({ app })
 
