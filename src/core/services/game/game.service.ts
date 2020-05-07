@@ -1,4 +1,5 @@
 import { Player } from "../player/player.service"
+import { crypt } from "../../utils/utils"
 
 export interface IGameState {
     players: Map<string, Player>;
@@ -19,7 +20,7 @@ class Game {
     createPlayer(name) {
         if (typeof name != "string") { return false; }
         
-        const key = name; // ###################################### ENCRYPT
+        const key = crypt(name);
         if (!this.state.players.has(key)) {
             const player = new Player(name, key);
             this.state.players.set(key, player);

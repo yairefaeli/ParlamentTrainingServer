@@ -1,5 +1,6 @@
 import game from "../game.service";
 import { Player } from "../../player/player.service"
+import { crypt } from "../../../utils/utils"
 
 describe("game service spec", () => {
     beforeEach(() => {
@@ -9,7 +10,7 @@ describe("game service spec", () => {
         it("should create player", () => {
             const player = game.createPlayer("test") as Player;
             expect(player.getState().name).toBe("test");
-            expect(player.getState().key).toBe("test"); // ################### ENCRYPT FOR "TEST"
+            expect(player.getState().key).toBe("TEST");
         });
 
         it("should not create player for the second time", () => {
