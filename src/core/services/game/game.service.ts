@@ -17,9 +17,13 @@ class Game {
         return this.state.players.get(key);
     }
 
+    getPlayers() {
+        return this.state.players;
+    }
+
     createPlayer(name) {
         if (typeof name != "string") { return false; }
-        
+
         const key = crypt(name);
         if (!this.state.players.has(key)) {
             const player = new Player(name, key);

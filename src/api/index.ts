@@ -6,8 +6,23 @@ import { keepAliveResolvers } from "./keep-alive";
 import { keepAliveTypeDefs } from "./keep-alive/keep-alive.schema";
 import { LoginTypeDef } from "./login/login.schema";
 import { LoginResolvers } from "./login";
+import { baseResolvers } from "./base";
+import { LobyTypeDefs } from "./loby/loby.schema";
+import { LobyResolvers } from "./loby";
+import { playerTypeDefs } from "./player/player.schema";
 
 
-export const typeDefs = [baseTypeDefs, keepAliveTypeDefs, LoginTypeDef];
+export const typeDefs = [
+    baseTypeDefs,
+    keepAliveTypeDefs,
+    LoginTypeDef,
+    LobyTypeDefs,
+    playerTypeDefs
+];
 
-export const resolvers = merge(keepAliveResolvers, LoginResolvers)
+export const resolvers = merge(
+    baseResolvers,
+    keepAliveResolvers,
+    LoginResolvers,
+    LobyResolvers
+)
