@@ -1,4 +1,4 @@
-import { Player } from "../player/player.service"
+import { Player, PlayerStatus, IPlayer } from "../player/player.service"
 import { crypt } from "../../utils/utils"
 
 export interface IGameState {
@@ -18,7 +18,9 @@ class Game {
     }
 
     getPlayers() {
-        return this.state.players;
+        let players: IPlayer[] = []
+        this.state.players.forEach(player => players.push(player.getState()));
+        return players;
     }
 
     createPlayer(name) {
@@ -27,6 +29,8 @@ class Game {
         const key = crypt(name);
         if (!this.state.players.has(key)) {
             const player = new Player(name, key);
+            player.setStatus(PlayerStatus.PENDING);
+
             this.state.players.set(key, player);
             return player;
         }

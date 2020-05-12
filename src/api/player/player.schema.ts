@@ -10,6 +10,7 @@ export const playerTypeDefs = gql`
         SUSPEND
         NOT_ACTIVE
         WINNER
+        READY
     }
 
     type Player {

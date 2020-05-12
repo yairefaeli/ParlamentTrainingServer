@@ -1,3 +1,5 @@
+import { pubsub, Actions } from "../../utils/pubsub";
+
 export interface IPlayer {
     name: string;
     key: string;
@@ -14,6 +16,7 @@ export enum PlayerStatus {
     SUSPEND = "SUSPEND",
     NOT_ACTIVE = "NOT_ACTIVE",
     WINNER = "WINNER",
+    READY = "READY"
 }
 
 export class Player {
@@ -23,7 +26,7 @@ export class Player {
         this._state = {
             name,
             key,
-            status: PlayerStatus.PENDING,
+            status: undefined,
             createdAt: new Date()
         };
     }
@@ -34,5 +37,6 @@ export class Player {
 
     setStatus(status: PlayerStatus){
         this._state.status = status;
+        pubsub.publish(Actions.PLAYER_STATUS_CHANGED, this._state)
     }
 }
