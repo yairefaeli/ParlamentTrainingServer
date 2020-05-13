@@ -12,9 +12,9 @@ export const LobyResolvers = {
             if (!player) {
                 return { errors: ["Player Not Exists"] };
             }
-            player.getState().status = args.input.status;
+            player.setStatus(args.input.status)
             return {
-                player: {...game.getPlayer(crypt(args.input.token)).getState(), status: PlayerStatus.READY }
+                player: player.getState()
             };
         }
     }

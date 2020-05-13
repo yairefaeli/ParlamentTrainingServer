@@ -6,7 +6,7 @@ export const playerResolvers = {
         playerStatusChanged: {
             subscribe: withFilter(
                 () => pubsub.asyncIterator([Actions.PLAYER_STATUS_CHANGED]),
-                (payload, variables) => payload.key !== variables.currentPlayerToken
+                (payload, variables) => payload.name !== variables.currentPlayerToken
             ),
             resolve: payload => payload
         }

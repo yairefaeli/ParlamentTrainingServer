@@ -10,6 +10,7 @@ import { baseResolvers } from "./base";
 import { LobyTypeDefs } from "./loby/loby.schema";
 import { LobyResolvers } from "./loby";
 import { playerTypeDefs } from "./player/player.schema";
+import { playerResolvers } from "./player";
 
 
 export const typeDefs = [
@@ -24,5 +25,6 @@ export const resolvers = merge(
     baseResolvers,
     keepAliveResolvers,
     LoginResolvers,
-    LobyResolvers
+    LobyResolvers,
+    playerResolvers
 )
