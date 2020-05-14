@@ -20,4 +20,8 @@ export const LobyTypeDefs = gql`
             input: UpdatePlayerStatusInput
         ): UpdatePlayerStatusResponse
     }
+
+    extend type Subscription {
+        subscribeToTimer(playerToken: String!): String
+    }
 `;
