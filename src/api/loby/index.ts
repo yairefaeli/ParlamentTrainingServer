@@ -14,7 +14,7 @@ export const LobyResolvers = {
                 return { errors: ["Player Not Exists"] };
             }
             player.setStatus(args.input.status)
-            game.isAllReady();
+            game.timerCheck();
             return {
                 player: player.getState()
             };
