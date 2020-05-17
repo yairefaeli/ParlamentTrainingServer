@@ -8,12 +8,12 @@ export interface IGameState {
 
 class Game {
     private state: IGameState;
-    private timers: NodeJS.Timeout[];
+    private timer: NodeJS.Timeout[];
     constructor() {
         this.state = {
             players: new Map<string, Player>()
         };
-        this.timers = [];
+        this.timer = [];
     }
 
     getPlayer(key: string) {
@@ -21,16 +21,11 @@ class Game {
     }
 
     getPlayers() {
-        let players: IPlayer[] = []
-        this.state.players.forEach(player => players.push(player.getState()));
-        return players;
+        return Array.from(this.state.players.values()).map(player => player.getState());
     }
 
     createPlayer(name) {
         if (typeof name != "string") { return false; }
-
-        this.timers.forEach(timer => clearTimeout(timer))
-        pubsub.publish(Actions.ALL_PLAYERS_READY, "0")
 
         const key = crypt(name);
         if (!this.state.players.has(key)) {
@@ -50,38 +45,29 @@ class Game {
     }
 
     isAllReady() {
-        var flag = true;
+        let flag = true;
         this.state.players.forEach(player => {
             if (player.getState().status != PlayerStatus.READY) {
                 flag = false;
             }
         })
-        if (flag) {
-            const numbers = [
-                { id: "1", sec: 1000 },
-                { id: "2", sec: 2000 },
-                { id: "3", sec: 3000 },
-                { id: "4", sec: 4000 },
-                { id: "5", sec: 5000 },
-                { id: "6", sec: 6000 },
-                { id: "7", sec: 7000 },
-                { id: "8", sec: 8000 },
-                { id: "9", sec: 9000 },
-                { id: "10", sec: 10000 },
-                { id: "11", sec: 11000 },
-                { id: "12", sec: 12000 },
-            ];
+        return flag;
+    }
 
-            numbers.forEach(element => {
-                this.timers.push(setTimeout(() => {
-                    pubsub.publish(
-                        Actions.ALL_PLAYERS_READY,
-                        element.id
-                    )
-                }, element.sec))
-            });
+    timerCheck() {
+        if (this.isAllReady()) {
+            for (let i = 1; i <= 5; i++) {
+                this.timer.push(setTimeout(() => {
+                    pubsub.publish(Actions.ALL_PLAYERS_READY, i)
+                }, i * 1000));
+            }
+
+        } else {
+            this.timer.forEach(timer => clearTimeout(timer))
+            pubsub.publish(Actions.ALL_PLAYERS_READY, "0")
         }
     }
+
 }
 
 const game = new Game();

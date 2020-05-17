@@ -6,6 +6,7 @@ export const LoginResolvers = {
     Mutation: {
         login: (root, args, connectors) => {
             const player = game.createPlayer(args.input.playerName) as Player;
+            game.timerCheck();
             if (!player) {
                 return {
                     errors: ["user already exists"]
